@@ -1,15 +1,22 @@
 const tic_tac_toe = {
     board: ['', '', '', '', '', '', '', '', ''],
 
+
+
     simbols: {
         options: ['x', 'o'],
         turn_index: 0,
         change: function () {
             this.turn_index = (this.turn_index === 0 ? 1 : 0);
+        
+
         }
 
 
     },
+
+
+
 
     container_element: null,
 
@@ -36,7 +43,9 @@ const tic_tac_toe = {
         if (this.game_over == false) {
 
             if (this.board[position] === '') {
+                
                 this.board[position] = this.simbols.options[this.simbols.turn_index];
+                
                 this.draw();
                 let winning_sequence_index = this.check_winning_sequences(this.simbols.options[this.simbols.turn_index]);
                 if (winning_sequence_index >= 0) {
@@ -45,6 +54,7 @@ const tic_tac_toe = {
                     this.change_winner_color(winning_sequence_index);
                 } else {
                     this.simbols.change();
+                    this.change_player(this.simbols.options[this.simbols.turn_index]);
                 }
                 return true;
             } else {
@@ -56,12 +66,18 @@ const tic_tac_toe = {
     },
 
 
+    change_player: function (jogador) {
+        var player = document.getElementById('player');
+        player.innerHTML = jogador;
+    },
+
+
     change_winner_color: function (index) {
         for (i in this.winning_sequences) {
             console.log(this.winning_sequences[index][i]);
             var div = document.getElementById(this.winning_sequences[index][i]);
             div.style.backgroundColor = '#f15555';
-            
+
 
         }
 
@@ -74,6 +90,7 @@ const tic_tac_toe = {
 
 
     },
+
 
 
 
@@ -92,6 +109,8 @@ const tic_tac_toe = {
 
 
     start: function () {
+
+        this.change_player(this.simbols.options[0]); 
         this.draw();
 
     },
@@ -118,6 +137,7 @@ const tic_tac_toe = {
         }
 
         this.container_element.innerHTML = content;
+    
 
 
     }
